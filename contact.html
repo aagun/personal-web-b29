@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="index.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="left">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="right side">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+      <a href="contact.html">Contact Me</a>
+    </div>
+  </nav>
+  <main class="container">
+    <section class="form-contact">
+      <form action="#">
+        <div class="group-input">
+          <label for="input-name">Name</label>
+          <input id="input-name" type="text">
+        </div>
+        <div class="group-input">
+          <label for="input-email">Email</label>
+          <input id="input-email" type="email">
+        </div>
+        <div class="group-input">
+          <label for="input-phone-number">Phone Number</label>
+          <input id="input-phone-number" type="text">
+        </div>
+        <div class="group-input">
+          <label for="input-subject">Subject</label>
+          <select name="" id="input-subject">
+            <option value="Let's collaboration">Let's collaboration</option>
+            <option value="Let's talk">Let's talk</option>
+            <option value="Help to create some project">Help to create some project</option>
+            <option value="I want to hire you">I want to hire you</option>
+          </select>
+        </div>
+        <div class="group-input">
+          <label for="input-message">Your Message</label>
+          <textarea name="" id="input-message" cols="40" rows="2"></textarea>
+        </div>
+        <button class="btn" onclick="submitForm()">Submit</button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
