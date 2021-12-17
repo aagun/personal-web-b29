@@ -7,6 +7,7 @@
 
 body {
   margin: 0;
+  background-color: #f7f8fa;
 }
 
 .header {
@@ -21,9 +22,14 @@ body {
 
 /* Navbar */
 nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0px 0px 25px rgba(0, 0, 10, 0.25);
+
   display: flex;
   flex-direction: row;
-  background-color: rgb(242, 242, 242);
+  background-color: white;
   font-weight: 400;
   height: 10vh;
 }
@@ -83,6 +89,8 @@ nav .right > a {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 80px;
+  margin-bottom: 100px;
 }
 
 /* Main left side */
@@ -172,6 +180,7 @@ td {
 /* end of right side */
 
 /* Contact Section */
+
 .group-input {
   margin-bottom: 20px;
 }
@@ -206,19 +215,25 @@ td {
 /* Blog section */
 .blog {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 80px;
+  margin-top: 150px;
+  margin-bottom: 80px;
 }
 /* Blog Form */
 .blog-form {
-  flex: 40%;
+  flex: 30%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  box-shadow: 0px 0px 25px rgba(0, 0, 10, 0.25);
+  margin-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+  background-color: white;
 }
 
 .blog-form .form-container {
   /* width: 500px; */
+  width: 80%;
 }
 
 .blog-form .form-container h1 {
@@ -278,7 +293,6 @@ select {
 }
 
 .blog-form form button {
-  margin-top: 50px;
   padding: 8px 20px;
   font-size: 17px;
   background: rgb(37, 150, 190);
@@ -297,10 +311,12 @@ select {
 
 /* Blog list */
 .blog .blog-list {
-  flex: 60%;
+  flex: 70%;
   display: flex;
-  align-items: center;
+  margin-top: 80px;
+  margin-left: 40px;
   flex-direction: column;
+  align-items: center;
 }
 
 .blog .blog-list .blog-list-item {
@@ -308,6 +324,8 @@ select {
   padding: 15px;
   margin-bottom: 20px;
   border: 2px solid #dbdbdb;
+  background-color: white;
+  box-shadow: 0px 0px 25px rgba(0, 0, 10, 0.25);
   border-radius: 8px;
   display: flex;
 }
@@ -347,6 +365,14 @@ select {
   color: #fff;
 }
 
+.blog .blog-list .btn-group .btn-delete {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: rgb(190 37 37);
+  color: #fff;
+}
+
 .blog .blog-list h1 a {
   text-decoration: none;
   color: #000000;
@@ -377,8 +403,15 @@ select {
   margin: 40px 0;
 }
 
+.blog-detail-container .image {
+  background-color: #000;
+}
+
 .blog-detail-container img {
-  width: 100%;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .blog-detail-container h1 {
@@ -405,6 +438,24 @@ select {
   text-align: justify;
 }
 /* end of blog */
+
+/* footer */
+footer {
+  width: 100%;
+  height: 7vh;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  font-size: 12px;
+  font-weight: 500;
+  color: grey;
+}
+
+/* end of footer */
 
 @media screen and (max-width: 991px) {
   /* start of large tablet styles */

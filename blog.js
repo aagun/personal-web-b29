@@ -1,5 +1,42 @@
 const posts = [];
 
+// function editPost(id) {
+//   posts.find((post, index) => {
+//     if (post.id == id) {
+//       posts.splice(index, 1);
+//     }
+//   });
+//   renderPosts();
+// }
+
+function detailPost(id) {
+  // local storage cannot store array and objects
+  // JSON encode before storing, convert to string
+  const post = posts.filter((p) => p.id == id);
+
+  // clear stored data on local storage
+  // localStorage.clear();
+
+  // store new data to local storage
+  localStorage.setItem(`${id}`, JSON.stringify(post[0]));
+
+  // pass data postId to detail.html by url params
+  let params = new URLSearchParams();
+  params.append('postId', id);
+
+  const url = `blog-detail.html?${params.toString()}`;
+  window.open(url);
+}
+
+function deletePost(id) {
+  posts.find((post, index) => {
+    if (post.id == id) {
+      posts.splice(index, 1);
+    }
+  });
+  renderPosts();
+}
+
 function addPost(event) {
   event.preventDefault();
   let title = document.getElementById('input-blog-title').value;
@@ -22,13 +59,13 @@ function addPost(event) {
   image = URL.createObjectURL(image.files[0]);
 
   const post = {
+    id: Date.now(),
     title,
     content,
     image,
     author: 'Agun',
     postAt: new Date(),
   };
-
   posts.push(post);
   renderPosts();
 }
@@ -37,7 +74,7 @@ function renderPosts() {
   let contentContainer = document.getElementById('contents');
   contentContainer.innerHTML = '';
   for (const post of posts) {
-    const { title, content, image, author, postAt } = post;
+    const { id, title, content, image, author, postAt } = post;
     contentContainer.innerHTML += `
     <div class="blog-list-item">
       <div class="blog-image">
@@ -45,11 +82,12 @@ function renderPosts() {
       </div>
     <div class="blog-content">
       <div class="btn-group">
-        <button class="btn-edit">Edit Post</button>
-        <button class="btn-post">Post Blog</button>
+        <button class="btn-edit" onclick="editPost(${id})">Edit Post</button>
+        <button class="btn-delete" onclick="deletePost(${id})">Delete Post</button>
+        <button class="btn-post" onclick="detailPost(${id})">View Post</button>
       </div>
       <h1>
-        <a href="blog-detail.html" target="_blank">${title}</a>
+        <a onclick="deletePost(${id})">${title}</a>
       </h1>
       <div class="detail-blog-content">
         ${getFullTime(postAt)} | ${author}
