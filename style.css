@@ -10,6 +10,14 @@ body {
   background-color: #f7f8fa;
 }
 
+.h-0 {
+  height: 0vh !important;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .header {
   font-size: 28px;
   text-align: left;
@@ -90,7 +98,14 @@ nav .right > a {
   align-items: center;
   justify-content: center;
   margin-top: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
+}
+
+.container-blog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 /* Main left side */
@@ -180,6 +195,9 @@ td {
 /* end of right side */
 
 /* Contact Section */
+.form-contact form {
+  padding-top: 200px;
+}
 
 .group-input {
   margin-bottom: 20px;
@@ -201,6 +219,14 @@ td {
   font-size: 20px;
 }
 
+.group-input input:focus,
+.group-input select:focus,
+.group-input textarea:focus {
+  outline: none;
+  border: 1px solid rgb(37, 150, 190);
+  box-shadow: 0 0 5px rgba(37, 150, 190, 1);
+}
+
 .btn {
   background-color: rgb(37, 150, 190);
   border: 1px solid rgb(37, 150, 190);
@@ -208,6 +234,7 @@ td {
   border-radius: 8px;
   padding: 10px 30px;
   margin-top: 5px;
+  margin-bottom: 100px;
   font-size: 20px;
 }
 /* end of contact */
@@ -215,25 +242,26 @@ td {
 /* Blog section */
 .blog {
   display: flex;
+  width: 80%;
   margin-top: 150px;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 /* Blog Form */
 .blog-form {
-  flex: 30%;
+  flex: 40%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0px 0px 25px rgba(0, 0, 10, 0.25);
-  margin-left: 20px;
-  padding-bottom: 20px;
-  border-radius: 12px;
-  background-color: white;
 }
 
 .blog-form .form-container {
-  /* width: 500px; */
-  width: 80%;
+  margin-bottom: 100px;
+}
+
+.blog-form .form-container form {
+  box-shadow: 0px 0px 25px rgba(0, 0, 10, 0.25);
+  border-radius: 12px;
+  background-color: white;
+  padding: 20px 40px 40px 40px;
 }
 
 .blog-form .form-container h1 {
@@ -313,8 +341,6 @@ select {
 .blog .blog-list {
   flex: 70%;
   display: flex;
-  margin-top: 80px;
-  margin-left: 40px;
   flex-direction: column;
   align-items: center;
 }
@@ -394,6 +420,7 @@ select {
 
 /* Blog Detail */
 .blog-detail {
+  margin-top: 120px;
   display: flex;
   justify-content: center;
 }
@@ -447,6 +474,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  bottom: 0;
 }
 
 footer p {
@@ -463,14 +492,25 @@ footer p {
     width: 80%;
     margin: 20px auto 0 auto;
   }
+
+  .form-contact form {
+    padding-top: 150px;
+  }
+
+  .blog {
+    flex-direction: column;
+  }
+
+  .blog-form .form-container {
+    width: 100%;
+  }
+
+  .blog .blog-list .blog-list-item {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  /* start of medium tablet styles */
-  /* } */
-
-  /* @media screen and (max-width: 479px) { */
-  /* start of phone styles */
   nav .left {
     padding: 0;
     padding-left: 20px;
@@ -499,8 +539,9 @@ footer p {
   }
 
   .container {
+    height: 0;
     display: block;
-    margin-top: 20px;
+    margin-top: 85px;
   }
   .personal {
     flex-direction: column;
@@ -522,6 +563,7 @@ footer p {
     justify-content: space-between;
     align-items: center;
     column-gap: 10px;
+    margin-bottom: 50px;
   }
 
   .social-media-container img {
@@ -532,8 +574,81 @@ footer p {
   .header {
     font-size: 22px;
   }
+  /* Contact */
+  .form-contact form {
+    padding-top: 40px;
+  }
+
+  .group-input {
+    margin-bottom: 15px;
+  }
+
+  .group-input label {
+    font-size: 14px;
+  }
+
+  .group-input input,
+  .group-input textarea,
+  .group-input select {
+    font-size: 14px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 8px 20px;
+    margin-bottom: 100px;
+  }
+
+  /* end of contact styling */
 }
 
+@media screen and (max-width: 479px) {
+  .btn {
+    width: 100%;
+  }
+
+  .blog-form .form-container form {
+    box-shadow: none;
+    background-color: #f7f8fa;
+    padding: 0;
+  }
+
+  .blog-form form button {
+    width: 100%;
+  }
+
+  .form-container form label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .form-container form input,
+  .form-container form textarea {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .form-container form label p {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .blog .blog-list .blog-list-item {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .btn-group {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .blog .blog-list .blog-list-item .blog-content {
+    padding-left: 0;
+  }
+}
 @media screen and (max-width: 375px) {
   nav .right a {
     font-size: 12px;
@@ -555,6 +670,10 @@ footer p {
     margin-right: 20px;
   }
 
+  .container {
+    margin-top: 85px;
+  }
+
   .personal .card {
     padding: 20px;
   }
@@ -562,5 +681,55 @@ footer p {
   .personal .right {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .blog {
+    margin-top: 90px;
+  }
+
+  .blog-form .form-container form {
+    box-shadow: none;
+    background-color: #f7f8fa;
+    padding: 0;
+  }
+
+  .blog-form form button {
+    width: 100%;
+  }
+
+  .form-container form label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .form-container form input,
+  .form-container form textarea {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .form-container form label p {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .blog .blog-list .blog-list-item {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .btn-group {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .blog .blog-list .blog-list-item .blog-content {
+    padding-left: 0;
   }
 }

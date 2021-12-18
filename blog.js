@@ -1,5 +1,32 @@
 const posts = [];
 
+function imagePreview() {
+  let imgPrev = document.getElementById('img-preview');
+  let div = document.getElementById('preview');
+  let inputBlogImage = document.getElementById('input-blog-image');
+  let [imageFile] = inputBlogImage.files;
+
+  // check input image by user
+  if (imageFile) {
+    const imageExtension = imageFile.type.match(/(?<=image\W)[\w]*/);
+    const regex = /(jpeg)/;
+    const isJpeg = regex.test(imageExtension);
+
+    // check image file extention
+    if (!isJpeg) {
+      inputBlogImage.value = '';
+      return alert('Image extension must be .JEPG or .JPG');
+    }
+
+    // show the preview image
+    let url = URL.createObjectURL(imageFile);
+    imgPrev.src = url;
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
+  }
+}
+
 // function editPost(id) {
 //   posts.find((post, index) => {
 //     if (post.id == id) {
@@ -41,33 +68,29 @@ function addPost(event) {
   event.preventDefault();
   let title = document.getElementById('input-blog-title').value;
   let content = document.getElementById('input-blog-content').value;
-  let image = document.getElementById('input-blog-image');
+  let uploadedImage = document.getElementById('input-blog-image');
+  let [image] = uploadedImage.files;
+  console.log(image);
   // check if all input form filled
-  if (!title || !content || image.files.length == 0) {
+  if (!title || !content || !image) {
     return alert('All data must be filled');
   }
-
-  // check image file extention
-  const imageExtension = image.files[0].type.match(/(?<=image\W)[\w]*/);
-  const regex = /(jpeg|jpg)/;
-  const fileFilter = regex.test(imageExtension);
-
-  if (!fileFilter) {
-    return alert('Image must be .JEPG or .PNG');
-  }
-
-  image = URL.createObjectURL(image.files[0]);
-
   const post = {
     id: Date.now(),
     title,
     content,
-    image,
+    image: URL.createObjectURL(image),
     author: 'Agun',
     postAt: new Date(),
   };
   posts.push(post);
   renderPosts();
+
+  // Reset all form inputs
+  document.getElementById('input-blog-title').value = '';
+  document.getElementById('input-blog-content').value = '';
+  document.getElementById('input-blog-image').value = '';
+  document.getElementById('preview').style.display = 'none';
 }
 
 function renderPosts() {
@@ -92,12 +115,12 @@ function renderPosts() {
       <div class="detail-blog-content">
         ${getFullTime(postAt)} | ${author}
       </div>
+      <div class="detail-blog-content time-post">
+        ${getDisctanceTime(postAt)}
+      </div>
       <p>
       ${content}
       </p>
-      <div class="detail-blog-content">
-        ${getDisctanceTime(postAt)}
-      </div>
     </div>
   </div>`;
   }
