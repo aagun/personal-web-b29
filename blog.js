@@ -51,7 +51,7 @@ function detailPost(id) {
   let params = new URLSearchParams();
   params.append('postId', id);
 
-  const url = `blog-detail.html?${params.toString()}`;
+  const url = `blog-view.html?${params.toString()}`;
   window.open(url);
 }
 

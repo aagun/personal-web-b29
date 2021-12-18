@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blogs</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <div class="left">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="right side">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="blogs.html">Blog</a></li>
+      </ul>
+      <a href="contact.html">Contact Me</a>
+    </div>
+  </nav>
+  <main>
+    <div class="detail">
+      <div class="blog-detail"></div>
+    </div>
+  </main>
+  <footer>
+    <p>©2021 Agun. All Rights Reserved</p>
+  </footer>
+  <script src="blog.js"></script>
+  <script>
+    // get post id by param
+    let params = new URLSearchParams(window.location.search);
+    let postId = params.get('postId');
+    console.log(postId);
+
+    // get data from local storage
+    const p = JSON.parse(localStorage.getItem(`${postId}`));
+
+    // convert localtime 021-12-16T07:56:55.680Z to Thu Dec 16 2021 15:07:23 GMT+0700 (Western Indonesia Time) unmodify UTC
+    let posted = new Date(p.postAt);
+
+    // render data
+    let detail = document.querySelector('.blog-detail');
+    detail.innerHTML = `
+    <div class="blog-detail-container">
+      <h1>${p.title}</h1>
+      <div class="author">${getFullTime(posted)} | ${p.author}</div>
+      <div class="image">
+        <img src="${p.image}" alt="image" />
+      </div>
+      <p>${p.content}</p>
+    </div>`;
+
+    let title = document.getElementById('post-title');
+    title.innerHTML = p.title;
+  </script>
+</body>
+
+</html>

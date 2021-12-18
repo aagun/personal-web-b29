@@ -419,6 +419,9 @@ select {
 }
 
 /* Blog Detail */
+.detail {
+  margin-top: 90px;
+}
 .blog-detail {
   margin-top: 120px;
   display: flex;
@@ -435,7 +438,7 @@ select {
 }
 
 .blog-detail-container img {
-  width: 25%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -454,6 +457,8 @@ select {
   font-size: 20px;
   line-height: 120%;
   margin-bottom: 20px;
+  font-weight: 400;
+  color: grey;
 }
 
 .blog-detail-container p {
@@ -647,6 +652,25 @@ footer p {
 
   .blog .blog-list .blog-list-item .blog-content {
     padding-left: 0;
+  }
+
+  .detail .blog-detail,
+  .detail .blog-detail-container {
+    margin-top: 0;
+  }
+
+  .detail .blog-detail-container h1 {
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .detail .blog-detail-container .author {
+    font-size: 12px;
+  }
+
+  .detail .blog-detail-container p {
+    margin-top: 20px;
+    font-size: 16px;
   }
 }
 @media screen and (max-width: 375px) {
