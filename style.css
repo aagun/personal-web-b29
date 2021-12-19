@@ -10,6 +10,19 @@ body {
   background-color: #f7f8fa;
 }
 
+p.nb {
+  margin: -15px 0 20px 8px;
+  font-size: 12px;
+  font-style: italic;
+  color: grey;
+  width: 250px;
+  overflow-wrap: break-word;
+}
+
+.bg-secondary {
+  background-color: #959595 !important;
+}
+
 .h-0 {
   height: 0vh !important;
 }
@@ -103,6 +116,7 @@ nav .right > a {
 
 .container-blog {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;
@@ -246,6 +260,33 @@ td {
   margin-top: 150px;
   margin-bottom: 100px;
 }
+/* Search Post */
+.search {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search button {
+  padding: 8px;
+  font-size: 20px;
+  border: 1px solid #c4c4c4;
+  border-radius: 0 8px 8px 0;
+}
+
+.search input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 8px;
+  background: #f4f3f3;
+  border: 1px solid #c4c4c4;
+  border-radius: 8px 0 0 8px;
+}
+/* end of search Post */
+
 /* Blog Form */
 .blog-form {
   flex: 40%;
@@ -342,7 +383,7 @@ select {
   flex: 70%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .blog .blog-list .blog-list-item {

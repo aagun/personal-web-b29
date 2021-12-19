@@ -1,41 +1,151 @@
-const posts = [];
+const posts = [
+  {
+    id: 1639927512954,
+    title: 'The HTML <a> Tag – Anchor Tag Example Code',
+    content: `HTML(Hyper Text Markup Language) is one of the languages we use to create web applications. It adds structure to your web pages. HTML has various tags we use to create elements.`,
+    image:
+      'https://www.freecodecamp.org/news/content/images/size/w2000/2021/12/freeCodeCamp-Cover.png',
+    author: 'Agun',
+    postAt: new Date(
+      'Sun Dec 19 2021 22:19:12 GMT+0700 (Western Indonesia Time)'
+    ),
+  },
+  {
+    id: 1639927677589,
+    title:
+      'How to Mute on Zoom – Mute Yourself with a Keyboard Shortcut or a Press of a Button',
+    content: `As remote work becomes more and more popular, more and more people and companies are using video conferencing services such as Zoom.`,
+    image:
+      'https://www.freecodecamp.org/news/content/images/size/w2000/2021/12/How-to-mute-yourself-on-Zoom--2-.jpg',
+    author: 'Agun',
+    postAt: new Date(
+      'Sun Dec 19 2021 22:27:57 GMT+0700 (Western Indonesia Time)'
+    ),
+  },
+];
 
 function imagePreview() {
-  let imgPrev = document.getElementById('img-preview');
-  let div = document.getElementById('preview');
-  let inputBlogImage = document.getElementById('input-blog-image');
-  let [imageFile] = inputBlogImage.files;
+  let addPostDisplay = document.getElementById('add-post').style.display;
+  let imageFile;
+  let inputBlogImage;
+  let div;
+  let imgPrev;
+  let imageName = document.querySelector('.nb');
+
+  if (addPostDisplay !== 'none') {
+    imgPrev = document.querySelectorAll('#img-preview')[0];
+    div = document.querySelectorAll('#preview')[0];
+    [imageFile] = document.getElementById('input-blog-image').files;
+  } else {
+    imgPrev = document.querySelectorAll('#img-preview')[1];
+    div = document.querySelectorAll('#preview')[1];
+    [imageFile] = document.getElementById('data-blog-image').files;
+  }
 
   // check input image by user
   if (imageFile) {
     const imageExtension = imageFile.type.match(/(?<=image\W)[\w]*/);
-    const regex = /(jpeg)/;
-    const isJpeg = regex.test(imageExtension);
+    const regex = /(jpeg|png)/;
+    const isJpegOrPng = regex.test(imageExtension);
 
     // check image file extention
-    if (!isJpeg) {
+    if (!isJpegOrPng) {
       inputBlogImage.value = '';
-      return alert('Image extension must be .JEPG or .JPG');
+      return alert('Image extension must be .JEPG/.JPG/.PNG');
     }
 
     // show the preview image
     let url = URL.createObjectURL(imageFile);
+
+    imageName.innerHTML = imageFile.name;
     imgPrev.src = url;
+
     if (div.style.display == 'none') {
       div.style.display = 'block';
     }
+  } else {
+    imageName.innerHTML = 'Image must be .jpeg/.jpg/.png';
+    div.style.display = 'none';
   }
 }
 
-// function editPost(id) {
-//   posts.find((post, index) => {
-//     if (post.id == id) {
-//       posts.splice(index, 1);
-//     }
-//   });
-//   renderPosts();
-// }
+function cancel() {
+  document.getElementById('data-blog-title').value = '';
+  document.getElementById('data-blog-content').value = '';
+  document.querySelector('#add-post').style.display = 'block';
+  document.querySelector('#edit-post').style.display = 'none';
+}
 
+// update post
+function updatePost(id, author, postAt) {
+  console.log(postAt);
+  console.log(new Date(postAt));
+  let title = document.getElementById('data-blog-title').value;
+  let content = document.getElementById('data-blog-content').value;
+  let uploadedImage = document.querySelectorAll('#img-preview')[1];
+  let image;
+
+  // if user doesn't change the image so it will use prev image url
+  if (uploadedImage.src) {
+    image = uploadedImage.src;
+  } else {
+    // get new image url if user upload new image
+    uploadedImage = document.getElementById('data-blog-image').files[0];
+    image = URL.createObjectURL(uploadedImage);
+  }
+
+  // check if all input form filled
+  if (!title || !content || !image) {
+    return alert('All data must be filled');
+  }
+
+  const post = {
+    id,
+    title,
+    content,
+    image,
+    author,
+    postAt: new Date(postAt),
+  };
+
+  // find the index of data
+  posts.findIndex((p, index) => {
+    if (p.id == id) {
+      // update new data
+      posts.splice(index, 1, post);
+    }
+  });
+
+  renderPosts();
+
+  document.getElementById('add-post').style.display = 'block';
+  document.getElementById('edit-post').style.display = 'none';
+  document.querySelectorAll('#preview')[1].style.display = 'none';
+}
+
+// edit post by id
+function editPost(id) {
+  document.getElementById('add-post').style.display = 'none';
+  document.getElementById('edit-post').style.display = 'block';
+  document.querySelectorAll('#preview')[1].style.display = 'block';
+
+  // get data by id
+  let post = posts.filter((p) => p.id == id);
+
+  const { title, content, image, author, postAt } = post[0];
+  // render data that want to edit
+  document.querySelectorAll('#img-preview')[1].src = image;
+  document.getElementById('data-blog-title').value = title;
+  document.getElementById('data-blog-content').value = content;
+
+  let button = document.querySelectorAll('.button-group')[1];
+  button.innerHTML = `
+    <button id="cancle" class="bg-secondary" onclick="cancel()">Cancel</button>
+    <button id="update-data" onclick="updatePost(${id}, '${author}', ${postAt.getTime()})">Update</button>
+  `;
+}
+
+// store data to local storage and url param
 function detailPost(id) {
   // local storage cannot store array and objects
   // JSON encode before storing, convert to string
@@ -55,26 +165,35 @@ function detailPost(id) {
   window.open(url);
 }
 
+// delete post by id
 function deletePost(id) {
-  posts.find((post, index) => {
-    if (post.id == id) {
-      posts.splice(index, 1);
+  posts.filter((p, index) => {
+    if (p.id === id) {
+      const message = `Do you want to delete data ${p.title}?`;
+      if (confirm(message)) {
+        posts.splice(index, 1);
+        renderPosts();
+        alert('Deleted data success');
+      }
     }
   });
-  renderPosts();
 }
 
+// adding new post to array
 function addPost(event) {
   event.preventDefault();
+
   let title = document.getElementById('input-blog-title').value;
   let content = document.getElementById('input-blog-content').value;
   let uploadedImage = document.getElementById('input-blog-image');
-  let [image] = uploadedImage.files;
-  console.log(image);
+
   // check if all input form filled
-  if (!title || !content || !image) {
+  if (!title || !content || uploadedImage.files.length == 0) {
     return alert('All data must be filled');
   }
+
+  let [image] = uploadedImage.files;
+  console.log(image);
   const post = {
     id: Date.now(),
     title,
@@ -84,6 +203,7 @@ function addPost(event) {
     postAt: new Date(),
   };
   posts.push(post);
+
   renderPosts();
 
   // Reset all form inputs
@@ -93,6 +213,7 @@ function addPost(event) {
   document.getElementById('preview').style.display = 'none';
 }
 
+// render all data on blogs page
 function renderPosts() {
   let contentContainer = document.getElementById('contents');
   contentContainer.innerHTML = '';
@@ -126,6 +247,7 @@ function renderPosts() {
   }
 }
 
+// custom date from based on local time
 function getFullTime(time) {
   const months = [
     'January',
@@ -153,6 +275,7 @@ function getFullTime(time) {
   return fullTime;
 }
 
+// get real time blog post
 function getDisctanceTime(time) {
   let timePosted = time;
   let timeNow = new Date();
