@@ -30,15 +30,17 @@ function imagePreview() {
   let inputBlogImage;
   let div;
   let imgPrev;
-  let imageName = document.querySelector('.nb');
+  let imageName;
 
   if (addPostDisplay !== 'none') {
     imgPrev = document.querySelectorAll('#img-preview')[0];
     div = document.querySelectorAll('#preview')[0];
+    imageName = document.querySelectorAll('.nb')[0];
     [imageFile] = document.getElementById('input-blog-image').files;
   } else {
     imgPrev = document.querySelectorAll('#img-preview')[1];
     div = document.querySelectorAll('#preview')[1];
+    imageName = document.querySelectorAll('.nb')[1];
     [imageFile] = document.getElementById('data-blog-image').files;
   }
 
@@ -57,8 +59,11 @@ function imagePreview() {
     // show the preview image
     let url = URL.createObjectURL(imageFile);
 
-    imageName.innerHTML = imageFile.name;
+    // render image file
     imgPrev.src = url;
+
+    // render name of image file
+    imageName.innerHTML = imageFile.name;
 
     if (div.style.display == 'none') {
       div.style.display = 'block';
@@ -69,6 +74,7 @@ function imagePreview() {
   }
 }
 
+// cancel update
 function cancel() {
   document.getElementById('data-blog-title').value = '';
   document.getElementById('data-blog-content').value = '';
