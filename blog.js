@@ -83,7 +83,8 @@ function cancel() {
 }
 
 // update post
-function updatePost(id, author, postAt) {
+function updatePost(id, author, postAt, event) {
+  event.preventDefault();
   console.log(postAt);
   console.log(new Date(postAt));
   let title = document.getElementById('data-blog-title').value;
@@ -147,7 +148,7 @@ function editPost(id) {
   let button = document.querySelectorAll('.button-group')[1];
   button.innerHTML = `
     <button id="cancle" class="bg-secondary" onclick="cancel()">Cancel</button>
-    <button id="update-data" onclick="updatePost(${id}, '${author}', ${postAt.getTime()})">Update</button>
+    <button type="button" id="update-data" onclick="updatePost(${id}, '${author}', ${postAt.getTime()}, event)">Update</button>
   `;
 }
 
